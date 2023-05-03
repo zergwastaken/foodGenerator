@@ -14,13 +14,11 @@
 <body>
 	<svg class="blobs" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
 		<path fill="rgb(33, 43, 57)" d="M37.4,-44.3C46.8,-36.8,51.3,-23.3,55.9,-8.3C60.4,6.8,65,23.5,61.1,40C57.2,56.5,44.8,72.9,29,77.9C13.2,82.8,-6.1,76.4,-25.3,69.4C-44.4,62.4,-63.3,55,-73.5,40.8C-83.6,26.6,-85,5.7,-81,-13.8C-77,-33.3,-67.7,-51.4,-53.3,-58.1C-38.9,-64.7,-19.4,-59.9,-2.7,-56.6C14.1,-53.4,28.1,-51.9,37.4,-44.3Z" transform="translate(0 110)" />
-		<!-- <path fill="rgb(33, 43, 57)" d="M37.4,-44.3C46.8,-36.8,51.3,-23.3,55.9,-8.3C60.4,6.8,65,23.5,61.1,40C57.2,56.5,44.8,72.9,29,77.9C13.2,82.8,-6.1,76.4,-25.3,69.4C-44.4,62.4,-63.3,55,-73.5,40.8C-83.6,26.6,-85,5.7,-81,-13.8C-77,-33.3,-67.7,-51.4,-53.3,-58.1C-38.9,-64.7,-19.4,-59.9,-2.7,-56.6C14.1,-53.4,28.1,-51.9,37.4,-44.3Z" transform="translate(250 30)" /> -->
 		<path fill="rgb(33, 43, 57)" d="M42.1,-48.3C51.9,-41.9,55.3,-26.2,57.9,-10.4C60.4,5.4,62.2,21.1,56.8,34.9C51.4,48.7,38.8,60.5,23.2,67.9C7.6,75.4,-11.1,78.6,-19.1,68.6C-27.2,58.7,-24.6,35.7,-31.3,20.1C-38,4.4,-53.8,-3.9,-60,-17.8C-66.2,-31.7,-62.8,-51.2,-51.1,-57.2C-39.5,-63.2,-19.8,-55.8,-1.8,-53.7C16.2,-51.5,32.3,-54.6,42.1,-48.3Z" transform="translate(220 50)" />
 		<path fill="rgb(23, 33, 47)" d="M42.1,-48.3C51.9,-41.9,55.3,-26.2,57.9,-10.4C60.4,5.4,62.2,21.1,56.8,34.9C51.4,48.7,38.8,60.5,23.2,67.9C7.6,75.4,-11.1,78.6,-19.1,68.6C-27.2,58.7,-24.6,35.7,-31.3,20.1C-38,4.4,-53.8,-3.9,-60,-17.8C-66.2,-31.7,-62.8,-51.2,-51.1,-57.2C-39.5,-63.2,-19.8,-55.8,-1.8,-53.7C16.2,-51.5,32.3,-54.6,42.1,-48.3Z" transform="translate(220 50)" />
-
 	</svg>
 	<div class="main-container">
-		<div class="container">
+		<div class="container" id="container">
 			<div class="header-container">
 				<h1>Lets Eat, <br> <a target="_blank" id="foodthinger" class="auto-type"></a></h1>
 				<p>Can you and your significant other never pick what food to eat?</p>
@@ -30,21 +28,65 @@
 			<div class="row">
 				<button id="generatebutton" class="main-button gen-button" onclick="GenerateFood()"> 
 					<i class="fa-solid fa-shuffle"></i> Generate Random
-					<select name="foodtype" id="foodtype" onmouseenter="buttontoggle(true)" onmouseleave="buttontoggle(false)">
+					<select name="foodtype" id="foodtype" onpointerleave="buttontoggle(false)"  onmouseenter="buttontoggle(true)" onmouseleave="buttontoggle(false)">
 						  <option value="fastfood" selected>Fast Food</option>
 						  <option value="dineIn">Dine In Food</option>
 						  <option value="deserts">Desert</option>
+						  <option value="custom">Custom</option>
 					</select>
 				</button>
-				<a href="" class="plus" target="_blank"><i class="fa-solid fa-circle-plus fa-beat"></i></a>
+				<button onclick="openpopup()" class="popupopenbutton">
+					<i class="fa-solid fa-circle-plus fa-beat plus"></i>
+				</button>
 			</div>
 		</div>
 		<footer>
 			<p>made with ❤️ by <a class="zerglink" target="_blank" href="https://steamcommunity.com/profiles/76561197962299747">zerg</a> and <a class="nicolelink" target="_blank" href="https://steamcommunity.com/profiles/76561199106706479">nicole</a></p>
 		</footer>
 	</div>
-	<script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
 
+	<div class="popup" id="popup">
+		<button onclick="closepopup()" class="popupclosebutton">
+			<i class="fa-solid fa-circle-xmark"></i>
+		</button>
+		<div class="popupheader">
+			<h1><span style="color:rgb(255, 56, 56);">Remove</span> or <span style="color:rgb(103, 255, 56)">Add</span> Resturants to the Food Generator</h1>
+		</div>
+
+		<form onsubmit="return false">
+			<!-- <select name="foodtypepopup" id="foodtypepopup" onpointerleave="buttontoggle(false)" onmouseenter="buttontoggle(true)" onmouseleave="buttontoggle(false)">
+				<option value="fastfood" selected>Fast Food</option>
+				<option value="dineIn">Dine In Food</option>
+				<option value="deserts">Desert</option>
+		  	</select> -->
+			<!-- <label for="newlisteditem">First name:</label> -->
+			<input placeholder="Resturant Name Goes Here!" type="text" id="newlisteditem" >
+			<button class="add-button" onclick="listNewItem()">
+				<i class="fa-solid fa-circle-plus"></i>
+			</button>
+			<!-- <h1 class="add-button"><i class="fa-solid fa-circle-plus"></i></h1> -->
+		</form>
+
+		<div id="items-container">
+			<!-- items will be generated here :) -->
+		</div>
+
+	</div>
+
+	<!-- geo location thing -->
+	<!-- <script>
+		const successCallback = (position) => {
+		console.log(position);
+		};
+
+		const errorCallback = (error) => {
+		console.log(error);
+		};
+
+		navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+	</script> -->
+
+	<script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
 	<script>
 		const emojis = [
 			"🍔", "🍭", "🍫", "🥧", "🧁", "🍰", "🍪", "🍩", "🍤", "🍝", "🍿", "🥗", "🫔", "🌯", "🌮", "🥪", "🌭", "🍕", "🍟", "🥓", "🥩", "🍗", "🧇", "🥞", "🥨"	
@@ -140,7 +182,69 @@
 				"Donut Shops",
 			],
 
+			custom:[
+				"hey",
+			],
 		}
+
+
+		function openpopup(){
+			document.getElementById("popup").style.display = "flex";
+			document.getElementById("container").style.display = "none";
+		}
+		
+		function closepopup(){
+			document.getElementById("container").style.display = "flex";
+			document.getElementById("popup").style.display = "none";
+		}
+		// adding foods to the list
+
+		function listNewItem() {
+			
+			let item = document.getElementById("newlisteditem").value;
+
+			if( item !== undefined && item != "" ){
+				food.custom.push(item)
+			}
+			updateList();
+
+			document.getElementById("newlisteditem").value = "";
+		}
+
+
+		const element = document.getElementById("items-container");
+
+		function updateList() {
+
+			element.innerHTML = '';
+
+			for (let i = 0; i < food.custom.length; i++) {
+				const tableRow = document.createElement("div");
+				tableRow.classList.add("listed-item");
+				element.appendChild(tableRow);
+
+				const text = document.createElement("h2");
+				tableRow.appendChild(text)
+				text.innerHTML = food.custom[i];
+	
+				const closebuttoncontainer = document.createElement("h2");
+				closebuttoncontainer.classList.add("remove-button")
+				tableRow.appendChild(closebuttoncontainer)
+	
+				const closebutton = document.createElement("i");
+				closebutton.classList.add("fa-solid", "fa-xmark");
+				closebuttoncontainer.appendChild(closebutton)
+				closebutton.innerHTML = "";
+	
+				closebuttoncontainer.onclick = function deleteTodo(){
+					console.log(food.custom[i]);
+					food.custom.splice(i, 1);
+					updateList()
+				}
+			}
+		}
+		updateList()
+
 
 		function buttontoggle(toggle){
 			document.querySelector('button').disabled = toggle;
@@ -173,6 +277,10 @@
 			} else if (value === "deserts") {
 				let randomFood = Math.floor(Math.random() * food.deserts.length)
 				let randomFoodName = food.deserts[randomFood];
+				goodstrings = [randomFoodName]
+			} else if (value === "custom") {
+				let randomFood = Math.floor(Math.random() * food.custom.length)
+				let randomFoodName = food.custom[randomFood];
 				goodstrings = [randomFoodName]
 			}
 			typed = new Typed(".auto-type", {
