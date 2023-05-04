@@ -231,6 +231,13 @@ footer{
 	
 }
 
+@media screen and (min-width: 800px) {
+	.popup{
+		width: 720px;
+	}
+}
+  
+
 .popupclosebutton{
 	font-size: 3rem;
 	position: absolute;
@@ -241,10 +248,15 @@ footer{
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	cursor: pointer;
+}
+
+.popupclosebutton:hover{
+	color: rgb(255, 56, 56);
 }
 
 .popupclosebutton:active{
-	color: red;
+	color: rgb(255, 56, 56);
 }
 
 form{
@@ -322,7 +334,7 @@ input::placeholder {
 }
 
 .remove-button {
-	
+
 }
 
 .remove-button:hover{
