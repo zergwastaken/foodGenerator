@@ -28,11 +28,11 @@
 			<div class="row">
 				<button id="generatebutton" class="main-button gen-button" onclick="GenerateFood()"> 
 					<i class="fa-solid fa-shuffle"></i> Generate Random
-					<select name="foodtype" id="foodtype" onpointerleave="buttontoggle(false)"  onmouseenter="buttontoggle(true)" onmouseleave="buttontoggle(false)">
+					<select name="foodtype" id="foodtype" onfocus="buttontoggle(true)" onmouseenter="buttontoggle(true)" onmouseleave="buttontoggle(false)">
 						  <option value="fastfood" selected>Fast Food</option>
 						  <option value="dineIn">Dine In Food</option>
 						  <option value="deserts">Desert</option>
-						  <option value="custom">Custom</option>
+						  <option id="customfood" value="custom">Custom</option>
 					</select>
 				</button>
 				<button onclick="openpopup()" class="popupopenbutton">
@@ -54,17 +54,10 @@
 		</div>
 
 		<form onsubmit="return false">
-			<!-- <select name="foodtypepopup" id="foodtypepopup" onpointerleave="buttontoggle(false)" onmouseenter="buttontoggle(true)" onmouseleave="buttontoggle(false)">
-				<option value="fastfood" selected>Fast Food</option>
-				<option value="dineIn">Dine In Food</option>
-				<option value="deserts">Desert</option>
-		  	</select> -->
-			<!-- <label for="newlisteditem">First name:</label> -->
 			<input placeholder="Resturant Name Goes Here!" type="text" id="newlisteditem" >
 			<button class="add-button" onclick="listNewItem()">
 				<i class="fa-solid fa-circle-plus"></i>
 			</button>
-			<!-- <h1 class="add-button"><i class="fa-solid fa-circle-plus"></i></h1> -->
 		</form>
 
 		<div id="items-container">
@@ -72,19 +65,6 @@
 		</div>
 
 	</div>
-
-	<!-- geo location thing -->
-	<!-- <script>
-		const successCallback = (position) => {
-		console.log(position);
-		};
-
-		const errorCallback = (error) => {
-		console.log(error);
-		};
-
-		navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-	</script> -->
 
 	<script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
 	<script>
@@ -183,10 +163,8 @@
 			],
 
 			custom:[
-				"hey",
 			],
 		}
-
 
 		function openpopup(){
 			document.getElementById("popup").style.display = "flex";
@@ -199,10 +177,11 @@
 		}
 		// adding foods to the list
 
+		
 		function listNewItem() {
 			
 			let item = document.getElementById("newlisteditem").value;
-
+			
 			if( item !== undefined && item != "" ){
 				food.custom.push(item)
 			}
@@ -210,11 +189,22 @@
 
 			document.getElementById("newlisteditem").value = "";
 		}
-
-
+		
+		
+		const customfoodselect = document.getElementById("customfood");
 		const element = document.getElementById("items-container");
 
+
+		
 		function updateList() {
+			if( food.custom.length === 0 ){
+				customfoodselect.disabled = true;
+				customfoodselect.selected = false;
+				
+			} else if(food.custom.length > 0){
+				customfoodselect.selected = true;
+				customfoodselect.disabled = false;
+			}
 
 			element.innerHTML = '';
 
